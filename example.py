@@ -32,6 +32,5 @@ for key, number in enumerate(arr_of_numbers):
     logger_tracer.print("Number {} not found at position {}. Let's keep searching".format(num_to_search, key))
     Tracer.step(22)
 
-# print(runner.export_events()[0].get_all_events())
-# print(runner.print_stats())
-print(Tracer.get_all_events())
+print(runner.export_events())
+print(runner.print_stats())

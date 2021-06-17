@@ -49,9 +49,8 @@ class Runner:
         json.loads(json.dumps(stats))
 
     def export_events(self):
-        return self._tracers
-        # TODO: Export all events from all the tracers
-        pass
+        tracer = self._tracers.pop()
+        return json.dumps(tracer.events, separators=(",", ":"))
 
     def get_tracers(self):
         return self._tracers
