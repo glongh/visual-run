@@ -30,7 +30,7 @@ logger_tracer.print("Original Array: {}".format(list(map(int, arr_of_numbers))))
 
 # }
 
-def merge_sort(array) -> list:
+def merge_sort(array: list) -> list:
     length = len(array)
 
     # O1: Base case
@@ -61,7 +61,7 @@ def merge_sort(array) -> list:
     return merged_list
 
 
-def merge(left_array, right_array) -> list:
+def merge(left_array: list, right_array: list) -> list:
     index_left = 0
     index_right = 0
     sorted_array = []
