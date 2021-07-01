@@ -10,11 +10,12 @@ class Tracer:
         self.id = uuid.uuid4()
 
     @classmethod
-    def trace(cls, id, event_name: str, parameters: [str]) -> None:
+    def trace(cls, id, event_name: str, parameters: [str], label: str = '') -> None:
         event = {
             "id": str(id),
             "event": event_name,
-            "parameters": json.loads(json.dumps(parameters))
+            "parameters": json.loads(json.dumps(parameters)),
+            "label": label
         }
         cls.events.append(event)
 
