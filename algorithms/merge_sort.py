@@ -98,10 +98,8 @@ def merge(left_array: list, right_array: list) -> list:
 
 # { Sort array of 100 elements using merge sort
 logger_tracer.print("Sort array of {} elements using merge sort".format(max_elements))
-# array_tracer.select_range(0, max_elements, "red")
 array_tracer.select(list(map(int, arr_of_numbers)), "red")
 Tracer.step(108)
-# array_tracer.unselect_range(0, max_elements)
 array_tracer.unselect(list(map(int, arr_of_numbers)))
 # }
 

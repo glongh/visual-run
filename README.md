@@ -23,7 +23,7 @@ and install the dependencies
 Algorithms are located on the algorithms folder.
 #### Merge sort
 ```bash
-# To generate the breackpoint of the algorithms run the following command
+# To generate a file with the traces of the algorithm, run the following command
 (env) python merge_sort.py
 ```
 
