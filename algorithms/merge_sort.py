@@ -23,9 +23,11 @@ shuffle(arr_of_numbers)
 
 # Initialize array with 100 numbers from 0 to 100 {
 array_tracer.init(arr_of_numbers)
-logger_tracer.print("Initialize array with {} numbers with values from 0 to 100".format(max_elements))
+logger_tracer.print(
+    "Initialize array with {} numbers with values from 0 to 100".format(max_elements))
 Tracer.step(20)
-logger_tracer.print("Original Array: {}".format(list(map(int, arr_of_numbers))))
+logger_tracer.print("Original Array: {}".format(
+    list(map(int, arr_of_numbers))))
 
 
 # }
@@ -42,18 +44,21 @@ def merge_sort(array: list) -> list:
 
     # O3: Left side is sorted
     # Split Left side {
-    logger_tracer.print("Split Left side: {}".format(list(map(int, array[:middle]))))
+    logger_tracer.print("Split Left side: {}".format(
+        list(map(int, array[:middle]))))
     # }
     left = merge_sort(array[:middle])
 
     # O4: Right side is sorted
     # Split Right side {
-    logger_tracer.print("Split Right side: {}".format(list(map(int, array[middle:]))))
+    logger_tracer.print("Split Right side: {}".format(
+        list(map(int, array[middle:]))))
     # }
     right = merge_sort(array[middle:])
 
     # Merge list {
-    logger_tracer.print("Merge: Left{} and Right{}".format(list(map(int, left)), list(map(int, right))))
+    logger_tracer.print("Merge: Left{} and Right{}".format(
+        list(map(int, left)), list(map(int, right))))
     # }
 
     # O0: Both part are sorted
@@ -97,7 +102,8 @@ def merge(left_array: list, right_array: list) -> list:
 
 
 # { Sort array of 100 elements using merge sort
-logger_tracer.print("Sort array of {} elements using merge sort".format(max_elements))
+logger_tracer.print(
+    "Sort array of {} elements using merge sort".format(max_elements))
 array_tracer.select(list(map(int, arr_of_numbers)), "red")
 Tracer.step(108)
 array_tracer.unselect(list(map(int, arr_of_numbers)))

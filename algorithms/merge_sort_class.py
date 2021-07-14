@@ -1,4 +1,5 @@
 # Import tracer {
+from os import RTLD_LAZY
 from runner import Runner
 from tracers import Array
 from tracers import Logger
@@ -9,7 +10,7 @@ from math import ceil
 # }
 
 # Setup the runner with the tracer {
-OUTPUT_TO_FILE = 0
+OUTPUT_TO_FILE = 1
 
 runner = Runner()
 array_tracer = Array()
@@ -22,9 +23,11 @@ arr_of_numbers = [randint(0, 100) for n in range(max_elements)]
 
 # Initialize array of numbers {
 array_tracer.init(arr_of_numbers)
-logger_tracer.print("Initialize array with {0} numbers with values from 0 to 100".format(max_elements))
+logger_tracer.print(
+    "Initialize array with {0} numbers with values from 0 to 100".format(max_elements))
 Tracer.step(19)
-logger_tracer.print("Original Array: {}".format(list(map(int, arr_of_numbers))))
+logger_tracer.print("Original Array: {}".format(
+    list(map(int, arr_of_numbers))))
 array_tracer.select_range(0, max_elements - 1, "red")
 Tracer.step(19)
 array_tracer.unselect_range(0, max_elements - 1)
@@ -56,7 +59,8 @@ class MergeSort():
         self.merge_sort(middle, end)
 
         # Merge list {
-        logger_tracer.print("Divide: Left[{},{}] and Right[{},{}]".format(start, middle - 1, middle, end - 1))
+        logger_tracer.print("Divide: Left[{},{}] and Right[{},{}]".format(
+            start, middle - 1, middle, end - 1))
         # }
 
         # O0: Both part are sorted
@@ -76,7 +80,8 @@ class MergeSort():
                 left.append(self.arr_of_numbers[start + index])
                 # Insert in to left {
                 array_tracer.select(start + index, "blue")
-                logger_tracer.print("Insert value {} into Left [{}]".format(self.arr_of_numbers[start + index], index))
+                logger_tracer.print("Insert value {} into Left [{}]".format(
+                    self.arr_of_numbers[start + index], index))
                 Tracer.step(70)
                 # }
 
@@ -92,7 +97,8 @@ class MergeSort():
             index += 1
 
         # Merge list {
-        logger_tracer.print("Left:{} and Right:{}".format(list(map(int, left)), list(map(int, right))))
+        logger_tracer.print("Left:{} and Right:{}".format(
+            list(map(int, left)), list(map(int, right))))
         # }
 
         index = 0
@@ -104,29 +110,34 @@ class MergeSort():
                     self.arr_of_numbers[start + index] = right.pop(0)
                     # {
                     line = 106
-                    logger_tracer.print("Replace Right[{}] with {}".format(index, self.arr_of_numbers[start + index]))
+                    logger_tracer.print("Replace Right[{}] with {}".format(
+                        index, self.arr_of_numbers[start + index]))
                     # }
                 else:
                     self.arr_of_numbers[start + index] = left.pop(0)
                     # {
                     line = 120
-                    logger_tracer.print("Replace Left[{}] with {}".format(index, self.arr_of_numbers[start + index]))
+                    logger_tracer.print("Replace Left[{}] with {}".format(
+                        index, self.arr_of_numbers[start + index]))
                     # }
             elif len(left) > 0:
                 self.arr_of_numbers[start + index] = left.pop(0)
                 # {
                 line = 118
-                logger_tracer.print("Replace Left[{}] with {}".format(index, self.arr_of_numbers[start + index]))
+                logger_tracer.print("Replace Left[{}] with {}".format(
+                    index, self.arr_of_numbers[start + index]))
                 # }
             else:
                 arr_of_numbers[start + index] = right.pop(0)
                 # {
                 line = 124
-                logger_tracer.print("Replace Right[{}] with {}".format(index, self.arr_of_numbers[start + index]))
+                logger_tracer.print("Replace Right[{}] with {}".format(
+                    index, self.arr_of_numbers[start + index]))
                 # }
 
             array_tracer.unselect(start + index)
-            array_tracer.notice(start + index, self.arr_of_numbers[start + index], "red")
+            array_tracer.notice(
+                start + index, self.arr_of_numbers[start + index], "red")
             Tracer.step(line)
             array_tracer.unnoticed(start + index)
             index += 1
@@ -137,24 +148,26 @@ class MergeSort():
         while index2 < end:
             partially_merged_array.append(self.arr_of_numbers[index2])
             index2 += 1
-        logger_tracer.print("Merged Array: {}".format(list(map(int, partially_merged_array))))
+        logger_tracer.print("Merged Array: {}".format(
+            list(map(int, partially_merged_array))))
         # }
 
 
-# Sort array of numbers
-merge = MergeSort(arr_of_numbers)
-sorted_list = merge.sort()
+if __name__ == "__main__":
+    # Sort array of numbers
+    merge = MergeSort(arr_of_numbers)
+    sorted_list = merge.sort()
 
-# { Sort array of 100 elements using merge sort
-logger_tracer.print("Sorted Array: {}".format(list(map(int, sorted_list))))
-array_tracer.select_range(0, max_elements - 1, "green")
-Tracer.step(146)
-# }
+    # { Sort array of 100 elements using merge sort
+    logger_tracer.print("Sorted Array: {}".format(list(map(int, sorted_list))))
+    array_tracer.select_range(0, max_elements - 1, "green")
 
+    Tracer.step(146)
+    # }
 
-if OUTPUT_TO_FILE:
-    jsonFile = open("output/merge_sort.json", "w")
-    jsonFile.write(runner.export_events())
-    jsonFile.close()
-else:
-    print(runner.export_events())
+    if OUTPUT_TO_FILE:
+        jsonFile = open("output/merge_sort_class.json", "w")
+        jsonFile.write(runner.export_events())
+        jsonFile.close()
+    else:
+        print(runner.export_events())
