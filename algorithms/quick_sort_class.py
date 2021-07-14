@@ -137,10 +137,8 @@ class QuickSort():
 
 if __name__ == "__main__":
     # Sort array of numbers
-    print(arr_of_numbers)
     quick = QuickSort(arr_of_numbers)
     sorted_list = quick.sort()
-    print(sorted_list)
     # { Sort array of 100 elements using quick sort
     logger_tracer.print("Sorted Array: {}".format(list(map(int, sorted_list))))
     array_tracer.select_range(0, max_elements - 1, "green")
