@@ -4,10 +4,11 @@ from os import walk
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse
 from utils import TraceFile
-
+from utils.lru_cache import CacheLRU
 
 PORT = 8080
 HOST = '127.0.0.1'
+
 
 
 class ServerHandler(BaseHTTPRequestHandler):
@@ -18,11 +19,10 @@ class ServerHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-
         # Get the algorithm ID
         query = urlparse(self.path).query
         id = ''
-        if(len(query)):
+        if (len(query)):
             query_components = dict(qc.split("=") for qc in query.split("&"))
             id = query_components.get('id', '')
 
@@ -51,8 +51,12 @@ class ServerHandler(BaseHTTPRequestHandler):
         elif '/algorithm' in self.path:
             if len(id) > 0:
                 self._set_headers()
-                with open('output/{}.json'.format(id)) as data_file:
-                    data = data_file.read()
+                data = lru_cache.get(id)
+                if not data:
+                    with open('output/{}.json'.format(id)) as data_file:
+                        data = data_file.read()
+                    print('read from file')
+                    lru_cache.set(id, data)
                 self.wfile.write(data.encode())
 
         # Return the source code of one algorithms
@@ -69,6 +73,8 @@ class ServerHandler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    cache_size = 2
+    lru_cache = CacheLRU(cache_size)
     webServer = HTTPServer((HOST, PORT), ServerHandler)
     print("Server started http://%s:%s" % (HOST, PORT))
 
