@@ -34,11 +34,11 @@ class CacheLRU():
         # the time, in this case what it is available in the 'cache' at the time of the request.
         # Greedy step: Evict an item when needed. Evict the element which is Least Recently Used.
 
-        # 1: Moves the key to the end to demonstrate if was recently used
+        # 1: Moves the key to the end to indicate if was recently used.
         self.cache.move_to_end(key)
+
         # 2: If the size has been exceeded, we remove the first key, the "Least Recently Used"
         if len(self.cache) > self.size:
             self.cache.popitem(last=False)
 
         # Oc (Complete): 'cache' is completely build.
-
