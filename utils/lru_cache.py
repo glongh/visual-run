@@ -30,8 +30,9 @@ class CacheLRU():
         # Cache eviction manager starts to builds up.
         self.cache[key] = item
 
-        # [Ob (Greed used): All changes to 'cache' have been additive, and optimizing based on information available at
-        # the time, in this case what it is available in the 'cache' at the time of the request.
+        # [Ob (Greed used): All changes to 'cache' have been "additive", when a key is evicted, there is no backtrack,
+        #  and "optimizing" based on information available at the time, in this case what it is available in the 'cache'
+        #  at the time of the request.
         # Greedy step: Evict an item when needed. Evict the element which is Least Recently Used.
 
         # 1: Moves the key to the end to indicate if was recently used.
